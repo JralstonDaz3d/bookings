@@ -1,6 +1,8 @@
 # Bookings and Reservations
 
-This is the repo for my Bookings and Reservations application.
+A Bookings and Reservations application built in Go for learning Go web development.
+
+This course is available on [Udemy](https://www.udemy.com/course/building-modern-web-applications-with-go/).
 
 - Built using Go version 1.17
 - Uses the following external packages
