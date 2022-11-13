@@ -19,11 +19,10 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 func AddDefaultData(td *models.TemplateData) *models.TemplateData {
-
 	return td
 }
 
-// RenderTemplate renders a template file from disk
+// RenderTemplate renders a template file
 func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 
 	var tc map[string]*template.Template
@@ -31,16 +30,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 		// get template cache from app config
 		tc = app.TemplateCache
 	} else {
+		// create template cache
 		tc, _ = CreateTemplateCache()
 	}
-
-	//create a template cache
-	/*
-		tc, err := CreateTemplateCache()
-		if err != nil {
-			log.Fatal(err)
-		}
-	*/
 
 	//get requested template from cache
 	t, ok := tc[tmpl]
@@ -51,9 +43,10 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	//use buffer
 	buf := new(bytes.Buffer)
 
-	//check for data
+	//check for and add template data
 	td = AddDefaultData(td)
 
+	//execute
 	err := t.Execute(buf, td)
 	if err != nil {
 		log.Println(err)
@@ -64,15 +57,6 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	if err != nil {
 		log.Println("error writing template to browser", err)
 	}
-
-	/*
-		parsedTemplate, _ := template.ParseFiles("./templates/"+tmpl, "./templates/base.layout.tmpl")
-		err := parsedTemplate.Execute(w, nil)
-		if err != nil {
-			fmt.Println("error parsing template", err)
-			return
-		}
-	*/
 }
 
 func CreateTemplateCache() (map[string]*template.Template, error) {
