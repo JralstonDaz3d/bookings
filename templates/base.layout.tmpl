@@ -6,14 +6,14 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <title>{{index .StringMap "test"}}</title>
         {{block "css" .}}
         {{end}}
     </head>
-    <body class="d-flex flex-column h-100">
+    <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="54">
         {{block "nav" .}}
         {{end}}
-        <main class="flex-shrink-0" style="padding-top:56px;">
+        <main class="flex-shrink-0 account-for-nav">
             {{block "content" .}}
             {{end}}
         </main>

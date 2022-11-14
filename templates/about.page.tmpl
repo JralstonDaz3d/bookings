@@ -1,12 +1,12 @@
 {{template "base" .}}
 
 {{define "content"}}
-    <div class="container">
+    <div class="container my-5">
         <div class="row">
             <div class="column">
                 <h1>About page</h1>
                 <p>This is a page about us. Another line. And another one.</p>
-                <p>This came from the template {{index .StringMap "test"}}</p>
+                <p>This came from the template [{{index .StringMap "test"}}]</p>
                 <p>
                     {{if ne (index .StringMap "remote_ip") ""}}
                         Your remote IP address is <span style="color: var(--bs-pink);">{{index .StringMap "remote_ip"}}</span> with a lifetime of <span style="color: var(--bs-pink);">{{index .StringMap "life_time"}}</span>
@@ -14,7 +14,6 @@
                         I don't know your IP address yet. Visit the <a href="/">Home page</a> so I can set it.
                     {{end}}
                 </p>
-                <p><a href="/">Home page</a></p>
             </div>
         </div>
     </div>

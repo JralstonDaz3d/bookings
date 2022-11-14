@@ -12,4 +12,7 @@ This course is available on [Udemy](https://www.udemy.com/course/building-modern
   - [NoSurf CSRF v1.1.1](https://github.com/justinas/nosurf)
 
 ### Front-End Toolset
-- [Bootstrap 5](https://getbootstrap.com/)
+- Uses the following front-end libraries
+  - [Bootstrap 5](https://getbootstrap.com/)
+  - [Font Awesome 4.7](https://font-awesome.com)
+  - [Google Fonts](https://fonts.google.com/)

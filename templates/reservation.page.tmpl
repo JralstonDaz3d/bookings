@@ -1,0 +1,134 @@
+{{template "base" .}}
+
+{{define "content"}}
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="text-uppercase section-heading">Make a Reservation</h2>
+                    <h3 class="text-muted section-subheading">Getting your favorite {{index .StringMap "test"}} has never been easier! </h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-home fa-stack-1x fa-inverse"></i></span>
+                    <h4 class="section-heading">Cabins</h4>
+                    <p class="text-muted">Select from charming single or multi room cabins in beautiful locals and settings that will inspire you.</p>
+                </div>
+                <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-suitcase fa-stack-1x fa-inverse"></i></span>
+                    <h4 class="section-heading">Rooms</h4>
+                    <p class="text-muted">Select from a wide range of rooms in excellent locations that fit your budget and family-size.</p>
+                </div>
+                <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-building fa-stack-1x fa-inverse"></i></span>
+                    <h4 class="section-heading">Suites</h4>
+                    <p class="text-muted">Select from top quality luxury suites at the best locations with excellent valet service.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mt-5">
+                    <form id="contactForm" name="contactForm">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h3>Occupant Information</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3"><input class="form-control" type="text" id="name" placeholder="Your Name *" required=""><small class="form-text text-danger flex-grow-1 lead"></small></div>
+                                <div class="form-group mb-3"><input class="form-control" type="email" id="email" placeholder="Your Email *" required=""><small class="form-text text-danger lead"></small></div>
+                                <div class="form-group mb-3"><input class="form-control" type="tel" placeholder="Your Phone *" required=""><small class="form-text text-danger lead"></small></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3"><textarea class="form-control" id="message" placeholder="Additional Accomodations" required="" rows="6"></textarea><small class="form-text text-danger lead"></small></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-center mt-5">
+                                <h3>Reservation Dates</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3"><label class="form-label">Arrival Date</label><input class="form-control" type="date"><small class="form-text text-danger flex-grow-1 lead"></small></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3"><label class="form-label">Departure Date</label><input class="form-control" type="date"><small class="form-text text-danger lead"></small></div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-lg-12 text-center mt-5">
+                                <div id="success-1"></div><button class="btn btn-primary btn-xl text-uppercase mt-3" id="sendMessageButton-1" type="submit">Make reservation</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-secondary" id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="text-uppercase section-heading">Rooms</h2>
+                    <h3 class="text-muted section-subheading">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal1" data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="/static/images/portfolio/1-thumbnail.jpg">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Threads</h4>
+                        <p class="text-muted">Illustration</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal2" data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="/static/images/portfolio/2-thumbnail.jpg">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Explore</h4>
+                        <p class="text-muted">Graphic Design</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal3" data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="/static/images/portfolio/3-thumbnail.jpg">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Finish</h4>
+                        <p class="text-muted">Identity</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal4" data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="/static/images/portfolio/4-thumbnail.jpg">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Lines</h4>
+                        <p class="text-muted">Branding</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal5" data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="/static/images/portfolio/5-thumbnail.jpg">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Southwest</h4>
+                        <p class="text-muted">Website Design</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal6" data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div><img class="img-fluid" src="/static/images/portfolio/6-thumbnail.jpg">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Window</h4>
+                        <p class="text-muted">Photography</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{{end}}

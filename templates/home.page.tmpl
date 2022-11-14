@@ -1,80 +1,213 @@
 {{template "base" .}}
 
 {{define "content"}}
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/static/images/outside.png" alt="Beach House image" class="w-100" />
-                <div class="container">
-                    <div class="carousel-caption text-center">
-                        <h1>Example headline.</h1>
-                        <p>Some representative placeholder content for the first slide of the carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+        <header class="masthead" style="background-image:url('/static/images/header-bg.jpg');">
+            <div class="container">
+                <div class="intro-text">
+                    <div class="intro-lead-in"><span>Welcome To Go Bookings!</span></div>
+                    <div class="intro-heading text-uppercase mt-5"><span>Reserve Your Happiness</span></div><a class="btn btn-primary link-dark btn-xl text-uppercase mt-5" role="button" href="/rooms">See Available Rooms</a>
+                </div>
+            </div>
+        </header>
+        <section id="services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="text-uppercase section-heading">Reservations Made Easy</h2>
+                        <h3 class="text-muted section-subheading">Getting your favorite room has never been easier!</h3>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-home fa-stack-1x fa-inverse"></i></span>
+                        <h4 class="section-heading">Cabins</h4>
+                        <p class="text-muted">Select from charming single or multi room cabins in beautiful locals and settings that will inspire you.</p>
+                    </div>
+                    <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-suitcase fa-stack-1x fa-inverse"></i></span>
+                        <h4 class="section-heading">Rooms</h4>
+                        <p class="text-muted">Select from a wide range of rooms in excellent locations that fit your budget and family-size.</p>
+                    </div>
+                    <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-building fa-stack-1x fa-inverse"></i></span>
+                        <h4 class="section-heading">Suites</h4>
+                        <p class="text-muted">Select from top quality luxury suites at the best locations with excellent valet service.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center"><a class="btn btn-primary link-dark btn-xl text-uppercase mt-5" role="button" href="/reservation">Make a Reservation</a></div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-secondary" id="portfolio">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="text-uppercase section-heading">Rooms</h2>
+                        <h3 class="text-muted section-subheading">Lorem ipsum dolor sit amet consectetur.</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal1" data-bs-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="/static/images/portfolio/1-thumbnail.jpg">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>Threads</h4>
+                            <p class="text-muted">Illustration</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal2" data-bs-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="/static/images/portfolio/2-thumbnail.jpg">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>Explore</h4>
+                            <p class="text-muted">Graphic Design</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal3" data-bs-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="/static/images/portfolio/3-thumbnail.jpg">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>Finish</h4>
+                            <p class="text-muted">Identity</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal4" data-bs-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="/static/images/portfolio/4-thumbnail.jpg">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>Lines</h4>
+                            <p class="text-muted">Branding</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal5" data-bs-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="/static/images/portfolio/5-thumbnail.jpg">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>Southwest</h4>
+                            <p class="text-muted">Website Design</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal6" data-bs-toggle="modal">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="/static/images/portfolio/6-thumbnail.jpg">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>Window</h4>
+                            <p class="text-muted">Photography</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center"><a class="btn btn-primary link-dark btn-xl text-uppercase mt-3" role="button" id="sendMessageButton-1" href="/rooms">See All Rooms</a></div>
+                </div>
+            </div>
+        </section>
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="text-uppercase">About Go Bookings</h2>
+                        <h3 class="text-muted section-subheading mb-5" style="max-width: 650px;margin: auto;">We are a new Reservation start-up ready to get you the best deals around. Not really though, this is just a demo Go application built with Bootstrap 5.</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="list-group timeline">
+                            <li class="list-group-item">
+                                <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/images/about/1.jpg"></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>2009-2011</h4>
+                                        <h4 class="subheading">Our Humble Beginnings</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item timeline-inverted">
+                                <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/images/about/2.jpg"></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>March 2011</h4>
+                                        <h4 class="subheading">An Agency is Born</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/images/about/3.jpg"></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>December 2012</h4>
+                                        <h4 class="subheading">Transition to Full Service</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item timeline-inverted">
+                                <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/images/about/4.jpg"></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>July 2014</h4>
+                                        <h4 class="subheading">Phase Two Expansion</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item timeline-inverted">
+                                <div class="timeline-image">
+                                    <h4>Be Part<br>&nbsp;Of Our<br>&nbsp;Story!</h4>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="/static/images/tray.png" alt="Food tray" class="w-100"/>
-                <div class="container">
-                    <div class="carousel-caption center">
-                        <h1>Another example headline.</h1>
-                        <p>Some representative placeholder content for the second slide of the carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+        </section>
+        <section id="contact" style="background-image:url('/static/images/map-image.png');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="text-uppercase section-heading">Get in Touch</h2>
+                        <h3 class="text-muted section-subheading">Drop us a line if you need more help.</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form id="contactForm" name="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3"><input class="form-control" type="text" id="name" placeholder="Your Name *" required=""><small class="form-text text-danger flex-grow-1 lead"></small></div>
+                                    <div class="form-group mb-3"><input class="form-control" type="email" id="email" placeholder="Your Email *" required=""><small class="form-text text-danger lead"></small></div>
+                                    <div class="form-group mb-3"><input class="form-control" type="tel" placeholder="Your Phone *" required=""><small class="form-text text-danger lead"></small></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3"><textarea class="form-control" id="message" placeholder="Your Message *" required=""></textarea><small class="form-text text-danger lead"></small></div>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-lg-12 text-center">
+                                    <div id="success"></div><button class="btn btn-primary link-dark btn-xl text-uppercase mt-5" id="sendMessageButton" type="submit">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="/static/images/woman-laptop.png" alt="Woman with laptop" class="w-100"/>
-                <div class="container">
-                    <div class="carousel-caption text-center">
-                        <h1>One more for good measure.</h1>
-                        <p>Some representative placeholder content for the third slide of this carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-    <div class="container marketing mt-5">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1>Welcome to the Go Bookings App!</h1>
-                <p>An example application built in Go with a Bootstrap 5 front-end.</p>
-            </div>
-        </div>
-        <div class="row text-center mt-5">
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2>Heading</h2>
-                <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2>Heading</h2>
-                <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2>Heading</h2>
-                <p>And lastly this, the third column of representative placeholder content.</p>
-                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-            </div>
-        </div>
-    </div>
+        </section>
 {{end}}

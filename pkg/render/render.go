@@ -2,7 +2,6 @@ package render
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/JralstonDaz3d/bookings/pkg/config"
 	"github.com/JralstonDaz3d/bookings/pkg/models"
 	"html/template"
@@ -94,49 +93,4 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 	return myCache, nil
 
-}
-
-// First Way
-var tc = make(map[string]*template.Template)
-
-// RenderTemplatesCache renders a template file from cache
-func RenderTemplatesCache(w http.ResponseWriter, t string) {
-	var tmpl *template.Template
-	var err error
-
-	//Check if we already have the template in cache
-	_, inMap := tc[t]
-	if !inMap {
-		//need to create template
-		log.Print("creating template and adding to cache")
-		err = CreateTemplatesCache(t)
-		if err != nil {
-			log.Print(err)
-		}
-	} else {
-		//we have template in cache
-		log.Print("using cached template")
-	}
-
-	tmpl = tc[t]
-
-	err = tmpl.Execute(w, nil)
-}
-
-func CreateTemplatesCache(t string) error {
-	templates := []string{
-		fmt.Sprintf("./templates/%s", t),
-		"./templates/base.layout.tmpl",
-	}
-
-	// parse the templates
-	tmpl, err := template.ParseFiles(templates...)
-	if err != nil {
-		log.Print(err)
-	}
-
-	//add templates to cache (map)
-	tc[t] = tmpl
-
-	return nil
 }

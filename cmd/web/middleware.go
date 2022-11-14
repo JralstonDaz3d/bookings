@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/justinas/nosurf"
 	"net/http"
 )
@@ -9,7 +8,7 @@ import (
 // WriteToConsole writes something to the console when a page is loaded
 func WriteToConsole(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Hit the page")
+		//fmt.Println("Hit the page")
 		next.ServeHTTP(w, r)
 	})
 }
