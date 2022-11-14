@@ -62,6 +62,26 @@
   });
 
 
+  //notie alerts
+  function Notify(msg, msgType) {
+    notie.alert({
+      type: msgType,
+      text: msg,
+      position: 'bottom'
+    });
+  }
+
+  const reservationalert = document.getElementById('sendMessageButton');
+  reservationalert.addEventListener("click", function (){
+    //Notify("Reservation has been made!", "success");
+    Swal.fire({
+      title: 'Reservation Ready!',
+      text: 'Do you want to reserve it?',
+      icon: 'question',
+      confirmButtonText: 'Yes'
+    })
+  })
+
 })(); // End of use strict
 
 

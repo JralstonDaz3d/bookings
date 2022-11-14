@@ -37,3 +37,5 @@ This web application covers all the basics of back-end Go development for web to
   - [Font Awesome 4.7](https://font-awesome.com)
   - [Google Fonts](https://fonts.google.com/)
   - [Vanilla JS Datepicker](https://mymth.github.io/vanillajs-datepicker)
+  - [Notie](https://github.com/jaredreich/notie)
+  - [SweetAlert 2](https://sweetalert2.github.io/)
