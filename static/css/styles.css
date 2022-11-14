@@ -1,3 +1,8 @@
+:root {
+  --bs-primary: #d7a400 !important;
+
+}
+
 #mainNav {
   box-shadow: 0px 1px 20px 0px rgb(0,0,0);
 }
@@ -22,12 +27,14 @@ header.masthead {
   --bs-btn-focus-shadow-rgb: 216, 178, 46;
   --bs-btn-active-color: #000;
   --bs-btn-active-bg: var(--bs-primary);
-  --bs-btn-active-border-color: #fed64a;
+  --bs-btn-active-border-color: var(--bs-primary);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #a9a9a9;
   --bs-btn-disabled-border-color: #a9a9a9;
 }
+
+.btn-primary
 
 .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
   color: var(--bs-btn-active-color);
@@ -65,9 +72,10 @@ a {
 }
 
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: var(--bs-primary) !important;
+  background-color: transparent !important;
   border-color: var(--bs-primary) !important;
-  color: #fff;
+  border:2px solid;
+  color: #000;
 }
 
 .btn-primary:active, .btn-primary:focus {
@@ -85,3 +93,65 @@ a {
   font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+.portfolio-link img{
+  height: 300px !important;
+}
+
+.portfolio-caption{
+  position: relative;
+}
+
+.i-reserve i{
+  position:absolute;
+  bottom:0;
+  right:30px;
+  background-color:#FFF;
+  border:1px solid #CCC;
+  color:#CCC;
+  width:30px;
+  height:30px;
+  padding-top: .5rem;
+  transition: .7s all ease-in-out;
+}
+
+.i-reserve i:hover{
+  border-color:var(--bs-primary);
+  color:var(--bs-primary);
+}
+
+.i-heart i{
+  position:absolute;
+  bottom:0;
+  right:0;
+  background-color:#CCC;
+  color:white;
+  width:30px;
+  height:30px;
+  padding-top: .5rem;
+  transition: .7s all ease-in-out;
+}
+
+.i-heart i:hover{
+  background-color:var(--bs-primary);
+  color:white;
+}
+
+.list-unstyle{
+  list-style: none;
+}
+
+.form-control{
+  transition: .71s all ease-in-out;
+}
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: var(--bs-primary);
+  outline: 0;
+  box-shadow: 0 0 0 .25rem var(--bs-primary);
+}
+
+section#contact .form-group .form-control:focus {
+  box-shadow: 0 0 0 .25rem var(--bs-primary);
+}
