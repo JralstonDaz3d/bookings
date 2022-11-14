@@ -82,6 +82,11 @@ a {
   box-shadow: 0 0 0 .2rem rgba(200,155,0,0.94) !important;
 }
 
+.btn-primary {
+  box-shadow: 0 0 0 .2rem rgba(200,155,0,0.0) !important;
+  border:2px solid var(--bs-primary);
+}
+
 #mainNav .navbar-toggler {
   font-size: 12px;
   right: 0;
@@ -142,12 +147,30 @@ a {
 
 .form-control{
   transition: .71s all ease-in-out;
+  height: 3rem;
 }
 
 .form-control:focus {
   color: #212529;
   background-color: #fff;
   border-color: var(--bs-primary);
+  outline: 0;
+  box-shadow: 0 0 0 .25rem var(--bs-primary);
+}
+
+.form-control-lg {
+  min-height: calc(1.5em + 1rem + 2px);
+  padding: .5rem 1rem;
+  font-size: initial;
+  border-radius: .5rem;
+  border-color: #4d5154;
+}
+
+.form-control-lg:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: var(--bs-primary);
+  border:none;
   outline: 0;
   box-shadow: 0 0 0 .25rem var(--bs-primary);
 }

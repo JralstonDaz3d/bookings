@@ -36,3 +36,4 @@ This web application covers all the basics of back-end Go development for web to
   - [Bootstrap 5](https://getbootstrap.com/)
   - [Font Awesome 4.7](https://font-awesome.com)
   - [Google Fonts](https://fonts.google.com/)
+  - [Vanilla JS Datepicker](https://mymth.github.io/vanillajs-datepicker)

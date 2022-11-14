@@ -54,4 +54,14 @@
     }
   }
 
+  // Range picker for Reservation Date selection
+  const elem = document.getElementById('reservation-dates');
+  const rangepicker = new DateRangePicker(elem, {
+    // ...options
+    format: "yyyy-mm-dd"
+  });
+
+
 })(); // End of use strict
+
+
