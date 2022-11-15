@@ -185,6 +185,7 @@ input {
 .form-control-lg {
   min-height: calc(1.5em + 1rem + 2px);
   padding: .5rem 1rem;
+  font-size: 1rem;
 }
 
 .form-control:focus, .form-control-lg:focus {
@@ -192,12 +193,15 @@ input {
   background-color: #fff;
   border-color: var(--bs-primary);
   outline: 0;
-  box-shadow: 0 0 0 .125rem var(--bs-primary);
+  box-shadow: 0 0 0 .125rem var(--bs-primary) !important;
 }
-
-
 
 .notie-container {
   box-shadow: none;
   background-color: var(--bs-success);
+}
+
+
+.datepicker-cell.selected, .datepicker-cell.selected:hover {
+  background-color: var(--bs-primary);
 }
