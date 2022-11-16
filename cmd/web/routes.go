@@ -27,11 +27,16 @@ func routes(app *config.AppConfig) http.Handler {
 
 	// Routes to our pages (update this when a new route or template is added!)
 	mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
+	mux.Post("/contact-form", http.HandlerFunc(handlers.Repo.ContactPost))
 	mux.Get("/about", http.HandlerFunc(handlers.Repo.About))
 	mux.Get("/contact", http.HandlerFunc(handlers.Repo.Contact))
+	//mux.Post("/contact", http.HandlerFunc(handlers.Repo.ContactPost))
 	mux.Get("/reservation", http.HandlerFunc(handlers.Repo.Reservation))
+	mux.Post("/reservation-form", http.HandlerFunc(handlers.Repo.ReservationPost))
 	mux.Get("/room", http.HandlerFunc(handlers.Repo.Room))
+	//mux.Post("/room", http.HandlerFunc(handlers.Repo.RoomPost))
 	mux.Get("/rooms", http.HandlerFunc(handlers.Repo.Rooms))
+	mux.Post("/rooms", http.HandlerFunc(handlers.Repo.RoomsPost))
 
 	// Tell file server where to get static files
 	fileServer := http.FileServer(http.Dir("./static/"))
