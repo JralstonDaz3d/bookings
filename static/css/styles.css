@@ -53,12 +53,16 @@ header.masthead {
   --bs-btn-disabled-border-color: #a9a9a9;
 }
 
-.btn-primary
+
 
 .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
+}
+
+.nav-link {
+  margin-top: 0.25rem !important;
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
@@ -249,4 +253,17 @@ section{
 .swal2-popup {
   max-width: 800px !important;
   margin: auto !important;
+}
+
+.nobox{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--bs-primary);
+}
+.nobox:focus, .nobox:hover, .nobox:active, .nobox:focus-within {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--bs-primary);
 }

@@ -148,6 +148,8 @@ func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 	stringMap["start"] = m.App.Session.GetString(r.Context(), "start")
 	stringMap["end"] = m.App.Session.GetString(r.Context(), "end")
 
+	stringMap["search"] = m.App.Session.GetString(r.Context(), "search")
+
 	//send data to the template
 	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
@@ -207,6 +209,57 @@ func (m *Repository) RoomsPost(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(r.Context(), "country", country)
 	m.App.Session.Put(r.Context(), "start", start)
 	m.App.Session.Put(r.Context(), "end", end)
+
+	// render template
+	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+// RoomsSearch is the rooms page search post handler
+func (m *Repository) RoomsSearch(w http.ResponseWriter, r *http.Request) {
+	// Get the form values
+	search := r.Form.Get("search")
+	/*
+		rooms := r.Form.Get("rooms")
+		guests := r.Form.Get("guests")
+		roomtype := r.Form.Get("roomtype")
+		zip := r.Form.Get("zip")
+		city := r.Form.Get("city")
+		country := r.Form.Get("country")
+		start := r.Form.Get("start")
+		end := r.Form.Get("end")
+	*/
+	// Put the values in a stringMap and insert into template
+	stringMap := make(map[string]string)
+	stringMap["search"] = search
+	/*stringMap["rooms"] = rooms
+	stringMap["guests"] = guests
+	stringMap["roomtype"] = roomtype
+	stringMap["zip"] = zip
+	stringMap["city"] = city
+	stringMap["country"] = country
+	stringMap["start"] = start
+	stringMap["end"] = end*/
+
+	stringMap["ok"] = "true"
+	stringMap["msg"] = "Successfully sent form data!"
+
+	// add the user info to the session
+	m.App.Session.Put(r.Context(), "search", search)
+	/*m.App.Session.Put(r.Context(), "rooms", rooms)
+	m.App.Session.Put(r.Context(), "guests", guests)
+	m.App.Session.Put(r.Context(), "roomtype", roomtype)
+
+	m.App.Session.Put(r.Context(), "zip", zip)
+	m.App.Session.Put(r.Context(), "city", city)
+	m.App.Session.Put(r.Context(), "country", country)
+	m.App.Session.Put(r.Context(), "start", start)
+	m.App.Session.Put(r.Context(), "end", end)*/
+
+	// Write plain text out to page
+	//w.Write([]byte("Posted to Contact"))
+	//w.Write([]byte(fmt.Sprintf("Searching: %s with rooms::%s and guests:%s roomtype: %s", search, rooms, guests, roomtype)))
 
 	// render template
 	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
@@ -298,7 +351,29 @@ func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(r.Context(), "end", end)
 
 	// render template
-	render.RenderTemplate(w, r, "reservation.page.tmpl", &models.TemplateData{
+	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+// PrivacyPolicy is the about page handler
+func (m *Repository) PrivacyPolicy(w http.ResponseWriter, r *http.Request) {
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Privacy Policy"
+
+	//send data to the template
+	render.RenderTemplate(w, r, "privacy-policy.page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+// TermsOfUse is the about page handler
+func (m *Repository) TermsOfUse(w http.ResponseWriter, r *http.Request) {
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Terms of Use"
+
+	//send data to the template
+	render.RenderTemplate(w, r, "terms-of-use.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
