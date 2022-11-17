@@ -45,6 +45,7 @@ func routes(app *config.AppConfig) http.Handler {
 
 	// Post AJAX
 	mux.Post("/available", http.HandlerFunc(handlers.Repo.AvailabilityJSON))
+	mux.Post("/available-post", http.HandlerFunc(handlers.Repo.AvailabilityPostJSON))
 
 	// Tell file server where to get static files
 	fileServer := http.FileServer(http.Dir("./static/"))

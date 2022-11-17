@@ -14,7 +14,7 @@
             <div class="row text-center">
                 <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-home fa-stack-1x fa-inverse"></i></span>
                     <h4 class="section-heading">Cabins</h4>
-                    <p class="text-muted">Select from charming single or multi room cabins in beautiful locals and settings that will inspire you.</p>
+                    <p class="text-muted">Select from charming single or multi-room cabins in beautiful locals and settings that will inspire you.</p>
                 </div>
                 <div class="col-md-4"><span class="fa-stack fa-4x"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-suitcase fa-stack-1x fa-inverse"></i></span>
                     <h4 class="section-heading">Rooms</h4>
@@ -27,7 +27,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-5">
-                    <form id="reservationForm" name="reservationForm" method="post" action="/reservation-form" novalidate class="needs-validation">
+                    {{$res := index .Data "reservation"}}
+                    <form id="reservationForm" name="reservationForm" method="post" action="/reservation-form" class="needs-validation2" novalidate>
                         <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                         <div class="row">
                             <div class="col-lg-12 text-center">
@@ -41,9 +42,9 @@
                                 <p class="item-intro">Tell us a little about yourself and what kind of accommodations you are looking for.</p>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3"><input value="{{index .StringMap "name"}}" class="form-control" type="text" name="name" id="name" placeholder="Your Name *" required=""><small class="form-text text-danger flex-grow-1 lead"></small></div>
-                                <div class="form-group mb-3"><input value="{{index .StringMap "email"}}" class="form-control" type="email" name="email" id="email" placeholder="Your Email *" required=""><small class="form-text text-danger lead"></small></div>
-                                <div class="form-group mb-3"><input value="{{index .StringMap "phone"}}" class="form-control" type="tel" name="phone" placeholder="Your Phone *" required=""><small class="form-text text-danger lead"></small></div>
+                                <div class="form-group mb-3"><input value="{{$res.Name}}" class="form-control {{with .Form.Errors.Get "name"}} is-invalid{{end}}" type="text" name="name" id="name" placeholder="Your Name *" required="">{{with .Form.Errors.Get "name"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.Email}}" class="form-control {{with .Form.Errors.Get "email"}} is-invalid{{end}}" type="email" name="email" id="email" placeholder="Your Email *" required="">{{with .Form.Errors.Get "email"}} <small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.Phone}}" class="form-control {{with .Form.Errors.Get "phone"}} is-invalid{{end}}" type="tel" name="phone" placeholder="Your Phone *" required="">{{with .Form.Errors.Get "phone"}}<small class="form-text text-danger lead"> {{.}}</small>{{end}}</div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3"><textarea class="form-control" id="message" name="message" placeholder="Additional Accommodations" rows="6" style="height:178px;">{{index .StringMap "message"}}</textarea><small class="form-text text-danger lead"></small></div>
@@ -55,11 +56,11 @@
                                 <p class="item-intro">Let us know the details for your perfect stay.</p>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3"><input value="{{index .StringMap "rooms"}}" class="form-control" type="number" name="rooms" id="rooms" placeholder="Number of Rooms *" required=""><small class="form-text text-danger flex-grow-1 lead"></small></div>
-                                <div class="form-group mb-3"><input value="{{index .StringMap "guests"}}" class="form-control" type="number" name="guests" id="guests" placeholder="Number of Guests *" required=""><small class="form-text text-danger lead"></small></div>
+                                <div class="form-group mb-3"><input value="{{$res.Rooms}}" class="form-control {{with .Form.Errors.Get "rooms"}} is-invalid{{end}}" type="number" name="rooms" id="rooms" placeholder="Number of Rooms *" required="">{{with .Form.Errors.Get "rooms"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.Guests}}" class="form-control {{with .Form.Errors.Get "guests"}} is-invalid{{end}}" type="number" name="guests" id="guests" placeholder="Number of Guests *" required="">{{with .Form.Errors.Get "guests"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                                 <div class="form-group mb-3">
-                                    <select class="form-control" id="roomtype" name="roomtype"  required="">
-                                        <option>Room Type*</option>
+                                    <select class="form-control  {{with .Form.Errors.Get "roomtype"}} is-invalid{{end}}" id="roomtype" name="roomtype"  required>
+                                        <option disabled value="">Room Type *</option>
                                         <option value="Any">Any</option>
                                         <option value="Cabin">Cabin</option>
                                         <option value="Bed & Breakfast">Bed & Breakfast</option>
@@ -68,14 +69,14 @@
                                         <option value="Luxury Suite">Luxury Suite</option>
                                         <option value="Large Event">Large Event</option>
                                     </select>
-                                    <small class="form-text text-danger lead"></small></div>
+                                    {{with .Form.Errors.Get "roomtype"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3"><input value="{{index .StringMap "zip"}}" class="form-control" type="text" name="zip" id="zip" placeholder="Zip Code *" required=""><small class="form-text text-danger flex-grow-1 lead"></small></div>
-                                <div class="form-group mb-3"><input value="{{index .StringMap "city"}}" class="form-control" type="text" name="city" id="city" placeholder="City *" required=""><small class="form-text text-danger lead"></small></div>
+                                <div class="form-group mb-3"><input value="{{$res.Zip}}" class="form-control {{with .Form.Errors.Get "zip"}} is-invalid{{end}}" type="text" name="zip" id="zip" placeholder="Zip Code *" required="">{{with .Form.Errors.Get "zip"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.City}}" class="form-control {{with .Form.Errors.Get "city"}} is-invalid{{end}}" type="text" name="city" id="city" placeholder="City *" required="">{{with .Form.Errors.Get "city"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                                 <div class="form-group mb-3">
-                                    <select class="form-control" id="country" name="country" autocomplete="country" enterkeyhint="done" required="">
-                                        <option>Country*</option>
+                                    <select class="form-control {{with .Form.Errors.Get "country"}} is-invalid{{end}}" id="country" name="country" autocomplete="country" enterkeyhint="done" required>
+                                        <option disabled value="">Country *</option>
                                         <option value="AF">Afghanistan</option>
                                         <option value="AX">Åland Islands</option>
                                         <option value="AL">Albania</option>
@@ -326,7 +327,7 @@
                                         <option value="ZM">Zambia</option>
                                         <option value="ZW">Zimbabwe</option>
                                     </select>
-                                    <small class="form-text text-danger lead"></small></div>
+                                    {{with .Form.Errors.Get "country"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                         </div>
                         <div class="row form-row mt-5" id="reservation-dates2">
@@ -335,10 +336,10 @@
                                 <p class="item-intro">Enter the date range that you wish to stay to check availability.</p>
                             </div>
                             <div class="col-12 col-sm-6 text-center text-sm-end mb-2 mb-sm-0">
-                                <input value="{{index .StringMap "start"}}" required class="form-control-lg" type="text" name="start" autocomplete="off" placeholder="Arrival Date*">
+                                <div class="form-group mb-3"><input value="{{$res.Start}}" required class="form-control form-control-lg {{with .Form.Errors.Get "start"}} is-invalid{{end}}" type="text" name="start" autocomplete="off" placeholder="Arrival Date *">{{with .Form.Errors.Get "start"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                             <div class="col-12 col-sm-6 text-center text-sm-start">
-                                <input value="{{index .StringMap "end"}}" required class="form-control-lg" type="text" name="end" autocomplete="off" placeholder="Departure Date*">
+                                <div class="form-group mb-3"><input value="{{$res.End}}" required class="form-control form-control-lg {{with .Form.Errors.Get "end"}} is-invalid{{end}}" type="text" name="end" autocomplete="off" placeholder="Departure Date *">{{with .Form.Errors.Get "end"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-lg-12 text-center mt-3">
@@ -360,14 +361,14 @@
 
         // Set the roomType and Country from the session
         window.onload = function() {
-            var roomtypeVal = '{{index .StringMap "roomtype"}}';
+            var roomtypeVal = '{{$res.Roomtype}}';
             var myRoomType = document.getElementById('roomtype');
             for (var i = 0; i < myRoomType.options.length; i++) {
                 if (myRoomType.options[i].value == roomtypeVal)
                     myRoomType.options[i].selected = true;
             }
 
-            var countryVal = '{{index .StringMap "country"}}';
+            var countryVal = '{{$res.Country}}';
             var myCountry = document.getElementById('country');
 
             for (var i = 0; i < myCountry.options.length; i++) {

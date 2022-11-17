@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/JralstonDaz3d/bookings/internal/config"
+	"github.com/JralstonDaz3d/bookings/internal/forms"
 	"github.com/JralstonDaz3d/bookings/internal/models"
 	"github.com/JralstonDaz3d/bookings/internal/render"
 	"log"
@@ -271,91 +272,142 @@ func (m *Repository) RoomsSearch(w http.ResponseWriter, r *http.Request) {
 
 // Reservation is the reservation page handler
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	// Put the values in a stringMap and insert into template
-	stringMap := make(map[string]string)
-	stringMap["test"] = "Reservation"
 
-	//populate from session data (if exists)
-	stringMap["remote_ip"] = m.App.Session.GetString(r.Context(), "remote_ip")
-	stringMap["life_time"] = m.App.Session.GetString(r.Context(), "life_time")
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+	data["reservation"] = emptyReservation
 
-	stringMap["name"] = m.App.Session.GetString(r.Context(), "name")
-	stringMap["email"] = m.App.Session.GetString(r.Context(), "email")
-	stringMap["phone"] = m.App.Session.GetString(r.Context(), "phone")
-	stringMap["message"] = m.App.Session.GetString(r.Context(), "message")
-	stringMap["rooms"] = m.App.Session.GetString(r.Context(), "rooms")
-	stringMap["guests"] = m.App.Session.GetString(r.Context(), "guests")
-	stringMap["roomtype"] = m.App.Session.GetString(r.Context(), "roomtype")
-	stringMap["zip"] = m.App.Session.GetString(r.Context(), "zip")
-	stringMap["city"] = m.App.Session.GetString(r.Context(), "city")
-	stringMap["country"] = m.App.Session.GetString(r.Context(), "country")
-	stringMap["start"] = m.App.Session.GetString(r.Context(), "start")
-	stringMap["end"] = m.App.Session.GetString(r.Context(), "end")
+	/*
+		// Put the values in a stringMap and insert into template
+		stringMap := make(map[string]string)
+		stringMap["test"] = "Reservation"
 
+		//populate from session data (if exists)
+		stringMap["remote_ip"] = m.App.Session.GetString(r.Context(), "remote_ip")
+		stringMap["life_time"] = m.App.Session.GetString(r.Context(), "life_time")
+
+		stringMap["name"] = m.App.Session.GetString(r.Context(), "name")
+		stringMap["email"] = m.App.Session.GetString(r.Context(), "email")
+		stringMap["phone"] = m.App.Session.GetString(r.Context(), "phone")
+		stringMap["message"] = m.App.Session.GetString(r.Context(), "message")
+		stringMap["rooms"] = m.App.Session.GetString(r.Context(), "rooms")
+		stringMap["guests"] = m.App.Session.GetString(r.Context(), "guests")
+		stringMap["roomtype"] = m.App.Session.GetString(r.Context(), "roomtype")
+		stringMap["zip"] = m.App.Session.GetString(r.Context(), "zip")
+		stringMap["city"] = m.App.Session.GetString(r.Context(), "city")
+		stringMap["country"] = m.App.Session.GetString(r.Context(), "country")
+		stringMap["start"] = m.App.Session.GetString(r.Context(), "start")
+		stringMap["end"] = m.App.Session.GetString(r.Context(), "end")
+	*/
 	//send data to the template
 	render.RenderTemplate(w, r, "reservation.page.tmpl", &models.TemplateData{
-		StringMap: stringMap,
+		Form: forms.New(nil),
+		Data: data,
 	})
 }
 
 // ReservationPost is the reservation page post handler - shows how to handle and process form post data
 func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	reservation := models.Reservation{
+		Name:     r.Form.Get("name"),
+		Email:    r.Form.Get("email"),
+		Phone:    r.Form.Get("phone"),
+		Message:  r.Form.Get("message"),
+		Rooms:    r.Form.Get("rooms"),
+		Guests:   r.Form.Get("guests"),
+		Roomtype: r.Form.Get("roomtype"),
+		Zip:      r.Form.Get("zip"),
+		City:     r.Form.Get("city"),
+		Country:  r.Form.Get("country"),
+		Start:    r.Form.Get("start"),
+		End:      r.Form.Get("end"),
+	}
+
+	form := forms.New(r.PostForm)
+
+	//form.Has("name", r)
+	form.Required("name", "email", "phone", "rooms", "guests", "roomtype", "zip", "city", "country", "start", "end")
+
+	form.MinLength("name", 3, r)
+
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		//send data to the template
+		render.RenderTemplate(w, r, "reservation.page.tmpl", &models.TemplateData{
+			Form: form,
+			Data: data,
+		})
+		return
+	}
+
+	/// OLD BELOW
 	// Get the form values
-	name := r.Form.Get("name")
-	email := r.Form.Get("email")
-	phone := r.Form.Get("phone")
-	message := r.Form.Get("message")
-	rooms := r.Form.Get("rooms")
-	guests := r.Form.Get("guests")
-	roomtype := r.Form.Get("roomtype")
-	zip := r.Form.Get("zip")
-	city := r.Form.Get("city")
-	country := r.Form.Get("country")
-	start := r.Form.Get("start")
-	end := r.Form.Get("end")
+	/*
+		name := r.Form.Get("name")
+		email := r.Form.Get("email")
+		phone := r.Form.Get("phone")
+		message := r.Form.Get("message")
+		rooms := r.Form.Get("rooms")
+		guests := r.Form.Get("guests")
+		roomtype := r.Form.Get("roomtype")
+		zip := r.Form.Get("zip")
+		city := r.Form.Get("city")
+		country := r.Form.Get("country")
+		start := r.Form.Get("start")
+		end := r.Form.Get("end")
 
-	// Write plain text out to page
-	//w.Write([]byte("Posted to Contact"))
-	//w.Write([]byte(fmt.Sprintf("%s with email:%s and phone:%s say: %s", name, email, phone, message)))
+		// Write plain text out to page
+		//w.Write([]byte("Posted to Contact"))
+		//w.Write([]byte(fmt.Sprintf("%s with email:%s and phone:%s say: %s", name, email, phone, message)))
 
-	// Put the values in a stringMap and insert into template
-	stringMap := make(map[string]string)
-	stringMap["name"] = name
-	stringMap["email"] = email
-	stringMap["phone"] = phone
-	stringMap["message"] = message
-	stringMap["rooms"] = rooms
-	stringMap["guests"] = guests
-	stringMap["roomtype"] = roomtype
-	stringMap["zip"] = zip
-	stringMap["city"] = city
-	stringMap["country"] = country
-	stringMap["start"] = start
-	stringMap["end"] = end
+		// Put the values in a stringMap and insert into template
+		stringMap := make(map[string]string)
+		stringMap["name"] = name
+		stringMap["email"] = email
+		stringMap["phone"] = phone
+		stringMap["message"] = message
+		stringMap["rooms"] = rooms
+		stringMap["guests"] = guests
+		stringMap["roomtype"] = roomtype
+		stringMap["zip"] = zip
+		stringMap["city"] = city
+		stringMap["country"] = country
+		stringMap["start"] = start
+		stringMap["end"] = end
 
-	stringMap["ok"] = "true"
-	stringMap["msg"] = "Successfully sent form data!"
+		stringMap["ok"] = "true"
+		stringMap["msg"] = "Successfully sent form data!"
 
-	// add the user info to the session
-	m.App.Session.Put(r.Context(), "name", name)
-	m.App.Session.Put(r.Context(), "email", email)
-	m.App.Session.Put(r.Context(), "phone", phone)
-	m.App.Session.Put(r.Context(), "message", message)
+		// add the user info to the session
+		m.App.Session.Put(r.Context(), "name", name)
+		m.App.Session.Put(r.Context(), "email", email)
+		m.App.Session.Put(r.Context(), "phone", phone)
+		m.App.Session.Put(r.Context(), "message", message)
 
-	m.App.Session.Put(r.Context(), "rooms", rooms)
-	m.App.Session.Put(r.Context(), "guests", guests)
-	m.App.Session.Put(r.Context(), "roomtype", roomtype)
+		m.App.Session.Put(r.Context(), "rooms", rooms)
+		m.App.Session.Put(r.Context(), "guests", guests)
+		m.App.Session.Put(r.Context(), "roomtype", roomtype)
 
-	m.App.Session.Put(r.Context(), "zip", zip)
-	m.App.Session.Put(r.Context(), "city", city)
-	m.App.Session.Put(r.Context(), "country", country)
-	m.App.Session.Put(r.Context(), "start", start)
-	m.App.Session.Put(r.Context(), "end", end)
+		m.App.Session.Put(r.Context(), "zip", zip)
+		m.App.Session.Put(r.Context(), "city", city)
+		m.App.Session.Put(r.Context(), "country", country)
+		m.App.Session.Put(r.Context(), "start", start)
+		m.App.Session.Put(r.Context(), "end", end)
 
-	// render template
-	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
-		StringMap: stringMap,
-	})
+		// render template
+		render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
+			StringMap: stringMap,
+		})
+
+	*/
 }
 
 // PrivacyPolicy is the PP page handler
@@ -408,4 +460,9 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 	//log.Println(string(out))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(out)
+}
+
+// AvailabilityPostJSON responds with JSON
+func (m *Repository) AvailabilityPostJSON(w http.ResponseWriter, r *http.Request) {
+
 }
