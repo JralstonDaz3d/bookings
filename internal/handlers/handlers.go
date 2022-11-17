@@ -1,9 +1,11 @@
 package handlers
 
 import (
-	"github.com/JralstonDaz3d/bookings/pkg/config"
-	"github.com/JralstonDaz3d/bookings/pkg/models"
-	"github.com/JralstonDaz3d/bookings/pkg/render"
+	"encoding/json"
+	"github.com/JralstonDaz3d/bookings/internal/config"
+	"github.com/JralstonDaz3d/bookings/internal/models"
+	"github.com/JralstonDaz3d/bookings/internal/render"
+	"log"
 	"net/http"
 )
 
@@ -22,7 +24,7 @@ func NewRepo(a *config.AppConfig) *Repository {
 	}
 }
 
-// NewHandlers sets reposity for the handlers
+// NewHandlers sets repository for the handlers
 func NewHandlers(r *Repository) {
 	Repo = r
 }
@@ -356,7 +358,7 @@ func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// PrivacyPolicy is the about page handler
+// PrivacyPolicy is the PP page handler
 func (m *Repository) PrivacyPolicy(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Privacy Policy"
@@ -367,7 +369,7 @@ func (m *Repository) PrivacyPolicy(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// TermsOfUse is the about page handler
+// TermsOfUse is the TOU page handler
 func (m *Repository) TermsOfUse(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Terms of Use"
@@ -376,4 +378,34 @@ func (m *Repository) TermsOfUse(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, r, "terms-of-use.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
 	})
+}
+
+type jsonResponse struct {
+	Ok      bool   `json:"ok"`
+	Message string `json:"message"`
+	Start   string `json:"start"`
+	End     string `json:"end"`
+}
+
+// AvailabilityJSON responds with JSON
+func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
+
+	start := r.Form.Get("start")
+	end := r.Form.Get("end")
+
+	resp := jsonResponse{
+		Ok:      true,
+		Message: "Available",
+		Start:   start,
+		End:     end,
+	}
+
+	out, err := json.MarshalIndent(resp, "", "     ")
+	if err != nil {
+		log.Println(err)
+	}
+
+	//log.Println(string(out))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }

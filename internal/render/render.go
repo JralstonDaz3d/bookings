@@ -2,8 +2,8 @@ package render
 
 import (
 	"bytes"
-	"github.com/JralstonDaz3d/bookings/pkg/config"
-	"github.com/JralstonDaz3d/bookings/pkg/models"
+	"github.com/JralstonDaz3d/bookings/internal/config"
+	"github.com/JralstonDaz3d/bookings/internal/models"
 	"github.com/justinas/nosurf"
 	"html/template"
 	"log"

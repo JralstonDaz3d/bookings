@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/JralstonDaz3d/bookings/pkg/config"
-	"github.com/JralstonDaz3d/bookings/pkg/handlers"
+	"github.com/JralstonDaz3d/bookings/internal/config"
+	"github.com/JralstonDaz3d/bookings/internal/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"net/http"
@@ -42,6 +42,9 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Post("/reservation-form", http.HandlerFunc(handlers.Repo.ReservationPost))
 	mux.Post("/rooms-form", http.HandlerFunc(handlers.Repo.RoomsSearch))
 	mux.Post("/rooms", http.HandlerFunc(handlers.Repo.RoomsPost))
+
+	// Post AJAX
+	mux.Post("/available", http.HandlerFunc(handlers.Repo.AvailabilityJSON))
 
 	// Tell file server where to get static files
 	fileServer := http.FileServer(http.Dir("./static/"))

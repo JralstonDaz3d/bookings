@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/JralstonDaz3d/bookings/pkg/config"
-	"github.com/JralstonDaz3d/bookings/pkg/handlers"
-	"github.com/JralstonDaz3d/bookings/pkg/render"
+	"github.com/JralstonDaz3d/bookings/internal/config"
+	"github.com/JralstonDaz3d/bookings/internal/handlers"
+	"github.com/JralstonDaz3d/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 	"log"
 	"net/http"

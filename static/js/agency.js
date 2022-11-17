@@ -150,13 +150,13 @@ function Prompt(){
       },
       preConfirm: () => {
         return [
-          document.getElementById('res-start').value,
-          document.getElementById('res-end').value
+          document.getElementById('start').value,
+          document.getElementById('end').value
         ]
       },
       didOpen: () => {
-        document.getElementById('res-start').removeAttribute('disabled');
-        document.getElementById('res-end').removeAttribute('disabled');
+        document.getElementById('start').removeAttribute('disabled');
+        document.getElementById('end').removeAttribute('disabled');
       }
     })
 
@@ -178,7 +178,7 @@ function Prompt(){
       position = "top-center",
     } = c;
 
-    const { value: formValues } = await Swal.fire({
+    const { value: result } = await Swal.fire({
       title: title,
       html: html,
       backdrop: true,
@@ -188,29 +188,37 @@ function Prompt(){
       allowOutsideClick: false,
       focusCancel: true,
       willOpen: () => {
-        const elem = document.getElementById('reservation-dates');
-        const rangepicker = new DateRangePicker(elem, {
-          format: "yyyy-mm-dd",
-
-          autohide: true
-        });
+        if (c.willOpen !== undefined) {
+          c.willOpen();
+        }
       },
       preConfirm: () => {
-          return [
-            document.getElementById('res-start').value,
-            document.getElementById('res-end').value
-          ]
+        if (c.preConfirm !== undefined) {
+          c.preConfirm();
+        }
       },
       didOpen: () => {
-        document.getElementById('res-start').removeAttribute('disabled');
-        document.getElementById('res-end').removeAttribute('disabled');
+        if (c.didOpen !== undefined) {
+          c.didOpen();
+        }
       }
     })
 
-    if (formValues) {
-      //console.log("form values:" + formValues);
-      Swal.fire(JSON.stringify(formValues))
+    if (result) {
+      //console.log("result values:" + result);
+      if (result.dismiss !== Swal.DismissReason.cancel) {
+        if (result.value !== "") {
+            if (c.callback !== undefined) {
+              c.callback(result);
+            }
+        } else {
+          c.callback(false);
+        }
+      } else {
+        c.callback(false);
+      }
     }
+
   }
 
   return {
