@@ -129,29 +129,5 @@
 {{block "rooms" .}}
 {{end}}
 
-<script>
-    // Set the roomType and Country from the session
-    window.onload = function() {
-        var roomsVal = '{{index .StringMap "rooms"}}';
-        var myRooms = document.getElementById('rooms');
-        for (var i = 0; i < myRooms.options.length; i++) {
-            if (myRooms.options[i].value == roomsVal)
-                myRooms.options[i].selected = true;
-        }
 
-        var guestsVal = '{{index .StringMap "guests"}}';
-        var myGuests = document.getElementById('guests');
-        for (var i = 0; i < myGuests.options.length; i++) {
-            if (myGuests.options[i].value == guestsVal)
-                myGuests.options[i].selected = true;
-        }
-
-        var roomtypeVal = '{{index .StringMap "roomtype"}}';
-        var myRoomType = document.getElementById('roomtype');
-        for (var i = 0; i < myRoomType.options.length; i++) {
-            if (myRoomType.options[i].value == roomtypeVal)
-                myRoomType.options[i].selected = true;
-        }
-    }
-</script>
 {{end}}

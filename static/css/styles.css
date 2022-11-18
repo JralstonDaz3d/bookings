@@ -267,3 +267,7 @@ section{
   box-shadow: none !important;
   color: var(--bs-primary);
 }
+
+#portfolio .date-picker-dropdown {
+  z-index: 99999 !important;
+}

@@ -47,7 +47,7 @@
                                 <div class="form-group mb-3"><input value="{{$res.Phone}}" class="form-control {{with .Form.Errors.Get "phone"}} is-invalid{{end}}" type="tel" name="phone" placeholder="Your Phone *" required="">{{with .Form.Errors.Get "phone"}}<small class="form-text text-danger lead"> {{.}}</small>{{end}}</div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3"><textarea class="form-control" id="message" name="message" placeholder="Additional Accommodations" rows="6" style="height:178px;">{{index .StringMap "message"}}</textarea><small class="form-text text-danger lead"></small></div>
+                                <div class="form-group mb-3"><textarea class="form-control" id="message" name="message" placeholder="Additional Accommodations" rows="6" style="height:178px;">{{$res.Message}}</textarea><small class="form-text text-danger lead"></small></div>
                             </div>
                         </div>
                         <div class="row">
@@ -56,13 +56,43 @@
                                 <p class="item-intro">Let us know the details for your perfect stay.</p>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3"><input value="{{$res.Rooms}}" class="form-control {{with .Form.Errors.Get "rooms"}} is-invalid{{end}}" type="number" name="rooms" id="rooms" placeholder="Number of Rooms *" required="">{{with .Form.Errors.Get "rooms"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}</div>
-                                <div class="form-group mb-3"><input value="{{$res.Guests}}" class="form-control {{with .Form.Errors.Get "guests"}} is-invalid{{end}}" type="number" name="guests" id="guests" placeholder="Number of Guests *" required="">{{with .Form.Errors.Get "guests"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3">
+                                    <!--<input value="{{$res.Rooms}}" class="form-control {{with .Form.Errors.Get "rooms"}} is-invalid{{end}}" type="number" name="rooms" id="rooms" placeholder="Number of Rooms *" required="">{{with .Form.Errors.Get "rooms"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}-->
+                                    <select class="form-control {{with .Form.Errors.Get "rooms"}} is-invalid{{end}}" id="rooms" name="rooms" required >
+                                        <option value="0">~</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <!--<input value="{{$res.Guests}}" class="form-control {{with .Form.Errors.Get "guests"}} is-invalid{{end}}" type="number" name="guests" id="guests" placeholder="Number of Guests *" required="">{{with .Form.Errors.Get "guests"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}-->
+                                    <select class="form-control {{with .Form.Errors.Get "guests"}} is-invalid{{end}}" id="guests" name="guests" required>
+                                        <option value="0">~</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
                                 <div class="form-group mb-3">
                                     <select class="form-control  {{with .Form.Errors.Get "roomtype"}} is-invalid{{end}}" id="roomtype" name="roomtype"  required>
                                         <option disabled value="">Room Type *</option>
                                         <option value="Any">Any</option>
-                                        <option value="Cabin">Cabin</option>
+                                        <option value="Cabins">Cabins</option>
                                         <option value="Bed & Breakfast">Bed & Breakfast</option>
                                         <option value="Economy Motel">Economy Motel</option>
                                         <option value="Quality Hotel">Quality Hotel</option>
@@ -361,6 +391,20 @@
 
         // Set the roomType and Country from the session
         window.onload = function() {
+            var roomsVal = '{{$res.Rooms}}';
+            var myRooms = document.getElementById('rooms');
+            for (var i = 0; i < myRooms.options.length; i++) {
+                if (myRooms.options[i].value == roomsVal)
+                    myRooms.options[i].selected = true;
+            }
+
+            var guestsVal = '{{$res.Guests}}';
+            var myGuests = document.getElementById('guests');
+            for (var i = 0; i < myGuests.options.length; i++) {
+                if (myGuests.options[i].value == guestsVal)
+                    myGuests.options[i].selected = true;
+            }
+
             var roomtypeVal = '{{$res.Roomtype}}';
             var myRoomType = document.getElementById('roomtype');
             for (var i = 0; i < myRoomType.options.length; i++) {

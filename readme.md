@@ -17,6 +17,8 @@ This web application covers all the basics of back-end Go development for web to
 - Sessions and Cookies
 - State Management
 - Handling User Input data
+- Client side Form Validation
+- Server side Form Validation + GoValidator
 - Persisting data with a database or datastore
 - Sending Emails
 - Authentication
@@ -29,6 +31,7 @@ This web application covers all the basics of back-end Go development for web to
   - [SCS Session Management v2.5.0](https://github.com/alexedwards/scs/v2) 
   - [Chi Router v5.0.7](https://github.com/go-chi/chi/v5)
   - [NoSurf CSRF v1.1.1](https://github.com/justinas/nosurf)
+  - [GoValidator](https://github.com/asaskevich/govalidator)
 
 ### Front-End Toolset Used
 - Responsive design using HTML5, CSS3, and Javascript

@@ -1,27 +1,27 @@
 {{define "rooms"}}
+    {{$res := index .Data "reservation"}}
     <section class="bg-secondary" id="portfolio">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="text-uppercase section-heading text-primary">Rooms</h2>
+                    <h2 class="text-uppercase section-heading text-primary">Available Space</h2>
                     <h3 class="section-subheading text-light">We have plenty of room for you and yours.</h3>
                 </div>
             </div>
-
-            <div class="row mb-3">
-                <div class="col-lg-12 text-center">
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark mb-2" aria-label="Eighth navbar example" style="border-radius: 0 0.78rem 0 0; border-bottom:2px solid #999;">
-                        <div class="container">
-                            <a class="navbar-brand" href="#">Showing:</a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarsExample07">
-                                <ul class="navbar-nav mt-1 me-auto mb-2 mb-lg-0">
-                                    <li class="nav-item">
-                                        <form method="post" action="/available">
-                                            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-                                            <select class="form-control nobox" id="rooms" name="rooms" onchange="submit();">
+            <form method="post" action="/rooms">
+                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+                <div class="row mb-3">
+                    <div class="col-lg-12 text-center">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark mb-2" aria-label="Eighth navbar example" style="border-radius: 0 0.78rem 0 0; border-bottom:2px solid #999;">
+                            <div class="container">
+                                <a class="navbar-brand" href="#">Showing:</a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarsExample07">
+                                    <ul class="navbar-nav mt-1 me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item">
+                                            <select class="form-control nobox" id="rooms" name="rooms" onchange="submit();" style="cursor: pointer">
                                                 <option value="0">~</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -34,15 +34,12 @@
                                                 <option value="9">9</option>
                                                 <option value="10">10</option>
                                             </select>
-                                        </form>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" style="margin-left:-18px;">Rooms</a>
-                                    </li>
-                                    <li>
-                                        <form method="post" action="/available">
-                                            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-                                            <select class="form-control nobox" id="guests" name="guests" onchange="submit();">
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" style="margin-left:-18px;">Rooms</a>
+                                        </li>
+                                        <li>
+                                            <select class="form-control nobox" id="guests" name="guests" onchange="submit();" style="cursor: pointer">
                                                 <option value="0">~</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -55,42 +52,43 @@
                                                 <option value="9">9</option>
                                                 <option value="10">10</option>
                                             </select>
-                                        </form>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" style="margin-left:-18px;">Guests</a>
-                                    </li>
-                                    <li>
-                                        <form method="post" action="/available">
-                                            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-                                            <select class="form-control nobox" id="roomtype" name="roomtype" onchange="submit();">
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" style="margin-left:-18px;">Guests</a>
+                                        </li>
+                                        <li>
+                                            <select class="form-control nobox" id="roomtype" name="roomtype" onchange="submit();" style="cursor: pointer">
                                                 <option value="Any">Any</option>
-                                                <option value="Cabin">Cabin</option>
+                                                <option value="Cabins">Cabins</option>
                                                 <option value="Bed & Breakfast">Bed & Breakfast</option>
                                                 <option value="Economy Motel">Economy Motel</option>
                                                 <option value="Quality Hotel">Quality Hotel</option>
                                                 <option value="Luxury Suite">Luxury Suite</option>
                                                 <option value="Large Event">Large Event</option>
                                             </select>
-                                        </form>
-                                    </li>
-                                </ul>
-                                <ul class="navbar-nav mt-1 ms-auto mb-2 mb-lg-0">
-                                     <li class="nav-item">
-                                        <a class="nav-link me-4" style="margin-left:-18px;"> [{{index .StringMap "start"}} - {{index .StringMap "end"}}] near {{index .StringMap "city"}}, {{index .StringMap "zip"}}</a>
-                                    </li>
-                                </ul>
-                                <form method="post" action="/available">
-                                    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-                                    <input value="{{index .StringMap "search"}}" name="search" id="search" class="form-control d-inline" type="search" placeholder="Search" aria-label="Search" onchange="submit();" style="border:none; background-color:rgba(255,255,255,0.18);">
-                                </form>
+                                        </li>
+                                    </ul>
+                                    <ul class="navbar-nav mt-1 ms-auto mb-2 mb-lg-0" id="reservation-dates">
+                                        <li class="nav-item">
+                                             <input value="{{$res.Start}}" required class="nobox form-control d-inline" style="max-width:110px; cursor:pointer;" type="text" id="start" name="start" autocomplete="off" placeholder="Arrival Date *">
+                                        </li>
+                                        <li class="nav-item">
+                                            <span class="text-secondary">-</span><input value="{{$res.End}}" required class="nobox form-control d-inline " style="max-width:110px; cursor:pointer;" type="text" id="end" name="end" autocomplete="off" placeholder="Departure Date *">
+                                        </li>
+                                        <li class="nav-item">
+                                             <a class="nav-link me-4" href="/reservation#city">{{$res.City}}, {{$res.Zip}}</a>
+                                        </li>
+                                    </ul>
+                                        <input value="{{$res.Search}}" name="search" id="search" class="form-control w-25" type="search" placeholder="Search" aria-label="Search" onchange="submit();" style="border:none; background-color:rgba(255,255,255,0.18);">
+                                </div>
                             </div>
-                        </div>
-                    </nav>
+                        </nav>
+                    </div>
                 </div>
-            </div>
+            </form>
 
             <div class="row">
+                <!-- TODO: Loop over rows from data -->
                 <div class="col-sm-12 col-md-6 col-xl-4 portfolio-item"><a class="portfolio-link" href="#" onclick="showSpot(1,'Aspen Cabin','rooms/cabin.webp');">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
@@ -169,6 +167,37 @@
             </div>
         </div>
     </section>
+    <script>
+        const elem2 = document.getElementById('reservation-dates');
+        const rangepicker2 = new DateRangePicker(elem2, {
+            format: "yyyy-mm-dd",
+            autohide: true,
+        });
+
+        // Set the roomType and Country from the session
+        window.onload = function() {
+            var roomsVal = '{{$res.Rooms}}';
+            var myRooms = document.getElementById('rooms');
+            for (var i = 0; i < myRooms.options.length; i++) {
+                if (myRooms.options[i].value == roomsVal)
+                    myRooms.options[i].selected = true;
+            }
+
+            var guestsVal = '{{$res.Guests}}';
+            var myGuests = document.getElementById('guests');
+            for (var i = 0; i < myGuests.options.length; i++) {
+                if (myGuests.options[i].value == guestsVal)
+                    myGuests.options[i].selected = true;
+            }
+
+            var roomtypeVal = '{{$res.Roomtype}}';
+            var myRoomType = document.getElementById('roomtype');
+            for (var i = 0; i < myRoomType.options.length; i++) {
+                if (myRoomType.options[i].value == roomtypeVal)
+                    myRoomType.options[i].selected = true;
+            }
+        }
+    </script>
 {{end}}
 
 {{define "rooms-home"}}

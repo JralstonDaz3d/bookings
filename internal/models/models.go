@@ -13,4 +13,5 @@ type Reservation struct {
 	Country  string
 	Start    string
 	End      string
+	Search   string
 }
