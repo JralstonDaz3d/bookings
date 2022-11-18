@@ -75,6 +75,8 @@ function Notify(msg, msgType) {
 }
 
 
+
+
 function Prompt(){
 
   // Use Toast

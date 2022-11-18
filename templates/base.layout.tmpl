@@ -25,6 +25,24 @@
 
         {{block "js" .}}
         {{end}}
+
+        {{with .Error}}
+            <script>
+                Notify("{{.}}", "error");
+            </script>
+        {{end}}
+
+        {{with .Flash}}
+            <script>
+               Notify("{{.}}", "success");
+            </script>
+        {{end}}
+
+        {{with .Warning}}
+            <script>
+                Notify("{{.}}", "warning");
+            </script>
+        {{end}}
     </body>
 </html>
 {{end}}
