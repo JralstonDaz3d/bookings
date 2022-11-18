@@ -35,15 +35,25 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	// Put the values in a stringMap and insert into template
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Home"
-	stringMap["remote_ip"] = m.App.Session.GetString(r.Context(), "remote_ip")
-	stringMap["life_time"] = m.App.Session.GetString(r.Context(), "life_time")
 
-	stringMap["name"] = m.App.Session.GetString(r.Context(), "name")
-	stringMap["email"] = m.App.Session.GetString(r.Context(), "email")
-	stringMap["phone"] = m.App.Session.GetString(r.Context(), "phone")
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+	if !ok {
+		log.Println("cannot get item from session")
+		data["reservation"] = emptyReservation
+		//return
+	}
+	data["reservation"] = reservation
+
+	stringMap["name"] = reservation.Name
+	stringMap["email"] = reservation.Email
+	stringMap["phone"] = reservation.Phone
 
 	render.RenderTemplate(w, r, "home.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
+		Form:      forms.New(nil),
+		Data:      data,
 	})
 }
 
@@ -130,30 +140,14 @@ func (m *Repository) Room(w http.ResponseWriter, r *http.Request) {
 
 // Rooms is the rooms page handler
 func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
-	var emptyReservation models.Reservation
-	data := make(map[string]interface{})
 
-	// fill the initial reservation with data from the Session if it exists
-	if m.App.Session.GetString(r.Context(), "name") != "" {
-		reservation := models.Reservation{
-			Name:     m.App.Session.GetString(r.Context(), "name"),
-			Email:    m.App.Session.GetString(r.Context(), "email"),
-			Phone:    m.App.Session.GetString(r.Context(), "phone"),
-			Message:  m.App.Session.GetString(r.Context(), "message"),
-			Rooms:    m.App.Session.GetString(r.Context(), "rooms"),
-			Guests:   m.App.Session.GetString(r.Context(), "guests"),
-			Roomtype: m.App.Session.GetString(r.Context(), "roomtype"),
-			Zip:      m.App.Session.GetString(r.Context(), "zip"),
-			City:     m.App.Session.GetString(r.Context(), "city"),
-			Country:  m.App.Session.GetString(r.Context(), "country"),
-			Start:    m.App.Session.GetString(r.Context(), "start"),
-			End:      m.App.Session.GetString(r.Context(), "end"),
-			Search:   m.App.Session.GetString(r.Context(), "search"),
-		}
-		data["reservation"] = reservation
-	} else {
-		data["reservation"] = emptyReservation
+	data := make(map[string]interface{})
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+	if !ok {
+		log.Println("cannot get item from session")
+		return
 	}
+	data["reservation"] = reservation
 
 	// Put the values in a stringMap and insert into template
 	stringMap := make(map[string]string)
@@ -169,35 +163,22 @@ func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 // RoomsPost is the rooms page post handler
 func (m *Repository) RoomsPost(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+	if !ok {
+		log.Println("cannot get item from session")
+
+		data["reservation"] = emptyReservation
+		//return
+	}
+	data["reservation"] = reservation
 
 	err := r.ParseForm()
 	if err != nil {
 		log.Println(err)
 		return
-	}
-
-	var emptyReservation models.Reservation
-	data := make(map[string]interface{})
-	data["reservation"] = emptyReservation
-
-	var reservation models.Reservation
-
-	if m.App.Session.GetString(r.Context(), "rooms") != "" {
-		// fill the initial reservation with data from the Session if it exists
-		reservation.Name = m.App.Session.GetString(r.Context(), "name")
-		reservation.Email = m.App.Session.GetString(r.Context(), "phone")
-		reservation.Message = m.App.Session.GetString(r.Context(), "message")
-		reservation.Rooms = m.App.Session.GetString(r.Context(), "rooms")
-		reservation.Guests = m.App.Session.GetString(r.Context(), "guests")
-		reservation.Roomtype = m.App.Session.GetString(r.Context(), "roomtype")
-		reservation.Zip = m.App.Session.GetString(r.Context(), "zip")
-		reservation.City = m.App.Session.GetString(r.Context(), "city")
-		reservation.Country = m.App.Session.GetString(r.Context(), "country")
-		reservation.Start = m.App.Session.GetString(r.Context(), "start")
-		reservation.End = m.App.Session.GetString(r.Context(), "end")
-		reservation.Search = m.App.Session.GetString(r.Context(), "search")
-	} else {
-		data["reservation"] = emptyReservation
 	}
 
 	// Add form values
@@ -211,10 +192,7 @@ func (m *Repository) RoomsPost(w http.ResponseWriter, r *http.Request) {
 	form := forms.New(r.PostForm)
 
 	// form is valid so add the user info to the session
-	m.App.Session.Put(r.Context(), "rooms", reservation.Rooms)
-	m.App.Session.Put(r.Context(), "guests", reservation.Guests)
-	m.App.Session.Put(r.Context(), "roomtype", reservation.Roomtype)
-	m.App.Session.Put(r.Context(), "search", reservation.Search)
+	m.App.Session.Put(r.Context(), "reservation", reservation)
 
 	// render template
 	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
@@ -246,40 +224,31 @@ func (m *Repository) RoomsSearch(w http.ResponseWriter, r *http.Request) {
 
 // Reservation is the reservation page handler
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	var emptyReservation models.Reservation
 	data := make(map[string]interface{})
+	form := forms.New(r.PostForm)
 
-	if m.App.Session.GetString(r.Context(), "name") != "" {
-		// fill the initial reservation with data from the Session if it exists
-		reservation := models.Reservation{
-			Name:     m.App.Session.GetString(r.Context(), "name"),
-			Email:    m.App.Session.GetString(r.Context(), "email"),
-			Phone:    m.App.Session.GetString(r.Context(), "phone"),
-			Message:  m.App.Session.GetString(r.Context(), "message"),
-			Rooms:    m.App.Session.GetString(r.Context(), "rooms"),
-			Guests:   m.App.Session.GetString(r.Context(), "guests"),
-			Roomtype: m.App.Session.GetString(r.Context(), "roomtype"),
-			Zip:      m.App.Session.GetString(r.Context(), "zip"),
-			City:     m.App.Session.GetString(r.Context(), "city"),
-			Country:  m.App.Session.GetString(r.Context(), "country"),
-			Start:    m.App.Session.GetString(r.Context(), "start"),
-			End:      m.App.Session.GetString(r.Context(), "end"),
+	if m.App.Session.Get(r.Context(), "reservation") != "" {
+
+		reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+		if !ok {
+			log.Println("cannot get item from session")
+			//return
+			var emptyReservation models.Reservation
+			data["reservation"] = emptyReservation
 		}
 		data["reservation"] = reservation
-	} else {
-		data["reservation"] = emptyReservation
 	}
 
 	//send data to the template
 	render.RenderTemplate(w, r, "reservation.page.tmpl", &models.TemplateData{
-		Form: forms.New(nil),
+		Form: form,
 		Data: data,
 	})
 }
 
 // ReservationPost is the reservation page post handler - shows how to handle and process form post data
 func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
-	stringMap := make(map[string]string)
+	//stringMap := make(map[string]string)
 
 	err := r.ParseForm()
 	if err != nil {
@@ -326,25 +295,29 @@ func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
 	// form is valid
 
 	// add the user info to the session
-	m.App.Session.Put(r.Context(), "name", reservation.Name)
-	m.App.Session.Put(r.Context(), "email", reservation.Email)
-	m.App.Session.Put(r.Context(), "phone", reservation.Phone)
-	m.App.Session.Put(r.Context(), "message", reservation.Message)
-	m.App.Session.Put(r.Context(), "rooms", reservation.Rooms)
-	m.App.Session.Put(r.Context(), "guests", reservation.Guests)
-	m.App.Session.Put(r.Context(), "roomtype", reservation.Roomtype)
-	m.App.Session.Put(r.Context(), "zip", reservation.Zip)
-	m.App.Session.Put(r.Context(), "city", reservation.City)
-	m.App.Session.Put(r.Context(), "country", reservation.Country)
-	m.App.Session.Put(r.Context(), "start", reservation.Start)
-	m.App.Session.Put(r.Context(), "end", reservation.End)
+	m.App.Session.Put(r.Context(), "reservation", reservation)
+	http.Redirect(w, r, "/rooms", http.StatusSeeOther)
+	/*
+		m.App.Session.Put(r.Context(), "name", reservation.Name)
+		m.App.Session.Put(r.Context(), "email", reservation.Email)
+		m.App.Session.Put(r.Context(), "phone", reservation.Phone)
+		m.App.Session.Put(r.Context(), "message", reservation.Message)
+		m.App.Session.Put(r.Context(), "rooms", reservation.Rooms)
+		m.App.Session.Put(r.Context(), "guests", reservation.Guests)
+		m.App.Session.Put(r.Context(), "roomtype", reservation.Roomtype)
+		m.App.Session.Put(r.Context(), "zip", reservation.Zip)
+		m.App.Session.Put(r.Context(), "city", reservation.City)
+		m.App.Session.Put(r.Context(), "country", reservation.Country)
+		m.App.Session.Put(r.Context(), "start", reservation.Start)
+		m.App.Session.Put(r.Context(), "end", reservation.End)
 
-	// render template
-	render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
-		StringMap: stringMap,
-		Form:      form,
-		Data:      data,
-	})
+		// render template
+		render.RenderTemplate(w, r, "rooms.page.tmpl", &models.TemplateData{
+			StringMap: stringMap,
+			Form:      form,
+			Data:      data,
+		})
+	*/
 }
 
 // PrivacyPolicy is the PP page handler

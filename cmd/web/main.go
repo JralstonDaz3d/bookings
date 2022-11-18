@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"github.com/JralstonDaz3d/bookings/internal/config"
 	"github.com/JralstonDaz3d/bookings/internal/handlers"
+	"github.com/JralstonDaz3d/bookings/internal/models"
 	"github.com/JralstonDaz3d/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 	"log"
@@ -23,6 +25,9 @@ func AddIntValues(x, y int) int {
 
 // main is the entry point to this app
 func main() {
+
+	// what am I going to put in the session
+	gob.Register(models.Reservation{})
 
 	// set dev or prod mode (dev=false)
 	app.InProduction = false
