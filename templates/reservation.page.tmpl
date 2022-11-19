@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-12 mt-5">
                     {{$res := index .Data "reservation"}}
-                    <form id="reservationForm" name="reservationForm" method="post" action="/reservation-form" class="needs-validation2" novalidate>
+                    <form id="reservationForm" name="reservationForm" method="post" action="/reservation-form" class="needs-validation" >
                         <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                         <div class="row">
                             <div class="col-lg-12 text-center">

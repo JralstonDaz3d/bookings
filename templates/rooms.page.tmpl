@@ -12,8 +12,8 @@
                       <div class="col-lg-12 text-center mt-5">
                           <h5 class="mb-3">Want To Book It?</h5>
                           <p class="item-intro">Enter the date range that you wish to stay below to check availability.</p>
-                          <input disabled required value="{{index .StringMap "start_date"}}" class="form-control-lg mb-3" type="text" id="start_date" name="start_date" autocomplete="off" placeholder="Arrival Date*" required="">
-                          <input disabled required value="{{index .StringMap "end_date"}}"class="form-control-lg mb-3" type="text" id="end_date" name="end_date" autocomplete="off" placeholder="Departure Date*" required="">
+                          <input disabled required value="{{index .StringMap "start_date"}}" class="form-control-lg mb-3" type="text" id="start_date2" name="start_date2" autocomplete="off" placeholder="Arrival Date*" required="">
+                          <input disabled required value="{{index .StringMap "end_date"}}"class="form-control-lg mb-3" type="text" id="end_date2" name="end_date2" autocomplete="off" placeholder="Departure Date*" required="">
                       </div>
                   </div>
                 </div>
@@ -60,13 +60,13 @@
             },
             preConfirm: () => {
                 return [
-                    document.getElementById('start_date').value,
-                    document.getElementById('end_date').value
+                    document.getElementById('start_date2').value,
+                    document.getElementById('end_date2').value
                 ]
             },
             didOpen: () => {
-                document.getElementById('start_date').removeAttribute('disabled');
-                document.getElementById('end_date').removeAttribute('disabled');
+                document.getElementById('start_date2').removeAttribute('disabled');
+                document.getElementById('end_date2').removeAttribute('disabled');
             },
             callback: function (result) {
                 //console.log("called");
@@ -86,7 +86,7 @@
                         console.log(data);
                         console.log(data.ok);
                         console.log(data.message);
-                        console.log(data.start + " - " + data.end);
+                        console.log(data.start_date + " - " + data.end_date);
                     })
             }
         });

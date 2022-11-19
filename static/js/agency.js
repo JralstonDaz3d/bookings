@@ -152,13 +152,13 @@ function Prompt(){
       },
       preConfirm: () => {
         return [
-          document.getElementById('start').value,
-          document.getElementById('end').value
+          document.getElementById('start_date').value,
+          document.getElementById('end_date').value
         ]
       },
       didOpen: () => {
-        document.getElementById('start').removeAttribute('disabled');
-        document.getElementById('end').removeAttribute('disabled');
+        document.getElementById('start_date').removeAttribute('disabled');
+        document.getElementById('end_date').removeAttribute('disabled');
       }
     })
 
