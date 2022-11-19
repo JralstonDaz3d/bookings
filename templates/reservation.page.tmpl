@@ -59,6 +59,7 @@
                                 <div class="form-group mb-3">
                                     <!--<input value="{{$res.Rooms}}" class="form-control {{with .Form.Errors.Get "rooms"}} is-invalid{{end}}" type="number" name="rooms" id="rooms" placeholder="Number of Rooms *" required="">{{with .Form.Errors.Get "rooms"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}-->
                                     <select class="form-control {{with .Form.Errors.Get "rooms"}} is-invalid{{end}}" id="rooms" name="rooms" required >
+                                        <option disabled value="">Rooms *</option>
                                         <option value="0">~</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -75,6 +76,7 @@
                                 <div class="form-group mb-3">
                                     <!--<input value="{{$res.Guests}}" class="form-control {{with .Form.Errors.Get "guests"}} is-invalid{{end}}" type="number" name="guests" id="guests" placeholder="Number of Guests *" required="">{{with .Form.Errors.Get "guests"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}-->
                                     <select class="form-control {{with .Form.Errors.Get "guests"}} is-invalid{{end}}" id="guests" name="guests" required>
+                                        <option disabled value="">Guests *</option>
                                         <option value="0">~</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -102,8 +104,8 @@
                                     {{with .Form.Errors.Get "roomtype"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group mb-3"><input value="{{$res.Zip}}" class="form-control {{with .Form.Errors.Get "zip"}} is-invalid{{end}}" type="text" name="zip" id="zip" placeholder="Zip Code *" required="">{{with .Form.Errors.Get "zip"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}</div>
                                 <div class="form-group mb-3"><input value="{{$res.City}}" class="form-control {{with .Form.Errors.Get "city"}} is-invalid{{end}}" type="text" name="city" id="city" placeholder="City *" required="">{{with .Form.Errors.Get "city"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.Zip}}" class="form-control {{with .Form.Errors.Get "zip"}} is-invalid{{end}}" type="text" name="zip" id="zip" placeholder="Zip Code *" required="">{{with .Form.Errors.Get "zip"}}<small class="form-text text-danger flex-grow-1 lead">{{.}}</small>{{end}}</div>
                                 <div class="form-group mb-3">
                                     <select class="form-control {{with .Form.Errors.Get "country"}} is-invalid{{end}}" id="country" name="country" autocomplete="country" enterkeyhint="done" required>
                                         <option disabled value="">Country *</option>

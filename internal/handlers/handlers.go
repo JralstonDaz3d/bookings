@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/JralstonDaz3d/bookings/internal/config"
 	"github.com/JralstonDaz3d/bookings/internal/forms"
+	"github.com/JralstonDaz3d/bookings/internal/helpers"
 	"github.com/JralstonDaz3d/bookings/internal/models"
 	"github.com/JralstonDaz3d/bookings/internal/render"
 	"log"
@@ -40,7 +41,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 	if !ok {
-		log.Println("cannot get item from session")
+		//log.Println("cannot get item from session")
 		data["reservation"] = emptyReservation
 		//return
 	}
@@ -144,8 +145,8 @@ func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 	if !ok {
-		log.Println("cannot get item from session")
-		m.App.Session.Put(r.Context(), "error", "Tell us what you're looking for first!")
+		//log.Println("cannot get item from session")
+		m.App.Session.Put(r.Context(), "error", "Let us know what you're looking for")
 		http.Redirect(w, r, "/reservation", http.StatusTemporaryRedirect)
 		return
 	}
@@ -170,7 +171,7 @@ func (m *Repository) RoomsPost(w http.ResponseWriter, r *http.Request) {
 
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 	if !ok {
-		log.Println("cannot get item from session")
+		//log.Println("cannot get item from session")
 
 		data["reservation"] = emptyReservation
 		//return
@@ -234,6 +235,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 		reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 		if !ok {
 			//log.Println("cannot get item from session")
+			//m.App.ErrorLog.Println("Can't get reservation from session")
 			//m.App.Session.Put(r.Context(), "error", "cannot get item from session")
 			//http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 			//return
@@ -256,7 +258,7 @@ func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
 
 	err := r.ParseForm()
 	if err != nil {
-		log.Println(err)
+		helpers.ServerError(w, err)
 		return
 	}
 
@@ -368,7 +370,8 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 
 	out, err := json.MarshalIndent(resp, "", "     ")
 	if err != nil {
-		log.Println(err)
+		helpers.ServerError(w, err)
+		return
 	}
 
 	//log.Println(string(out))

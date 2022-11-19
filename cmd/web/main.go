@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"github.com/JralstonDaz3d/bookings/internal/config"
 	"github.com/JralstonDaz3d/bookings/internal/handlers"
+	"github.com/JralstonDaz3d/bookings/internal/helpers"
 	"github.com/JralstonDaz3d/bookings/internal/models"
 	"github.com/JralstonDaz3d/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -17,6 +19,8 @@ const PortNumber = ":8080"
 
 var app config.AppConfig
 var session *scs.SessionManager
+var infoLog *log.Logger
+var errorLog *log.Logger
 
 // AddIntValues adds two int values
 func AddIntValues(x, y int) int {
@@ -31,6 +35,12 @@ func main() {
 
 	// set dev or prod mode (dev=false)
 	app.InProduction = false
+
+	infoLog = log.New(os.Stdout, "INFO:\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stdout, "ERROR:\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
 
 	// create session
 	session = scs.New()
@@ -51,8 +61,8 @@ func main() {
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
-
 	render.NewTemplates(&app)
+	helpers.NewHelpers(&app)
 
 	// serve the web page
 	fmt.Println(fmt.Sprintf("Starting app on port %s", PortNumber))
