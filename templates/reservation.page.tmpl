@@ -368,10 +368,10 @@
                                 <p class="item-intro">Enter the date range that you wish to stay to check availability.</p>
                             </div>
                             <div class="col-12 col-sm-6 text-center text-sm-end mb-2 mb-sm-0">
-                                <div class="form-group mb-3"><input value="{{$res.Start}}" required class="form-control form-control-lg {{with .Form.Errors.Get "start"}} is-invalid{{end}}" type="text" name="start" autocomplete="off" placeholder="Arrival Date *">{{with .Form.Errors.Get "start"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.StartDate}}" required class="form-control form-control-lg {{with .Form.Errors.Get "start_date"}} is-invalid{{end}}" type="text" name="start_date" autocomplete="off" placeholder="Arrival Date *">{{with .Form.Errors.Get "start_date"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                             <div class="col-12 col-sm-6 text-center text-sm-start">
-                                <div class="form-group mb-3"><input value="{{$res.End}}" required class="form-control form-control-lg {{with .Form.Errors.Get "end"}} is-invalid{{end}}" type="text" name="end" autocomplete="off" placeholder="Departure Date *">{{with .Form.Errors.Get "end"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
+                                <div class="form-group mb-3"><input value="{{$res.EndDate}}" required class="form-control form-control-lg {{with .Form.Errors.Get "end_date"}} is-invalid{{end}}" type="text" name="end_date" autocomplete="off" placeholder="Departure Date *">{{with .Form.Errors.Get "end_date"}}<small class="form-text text-danger lead">{{.}}</small>{{end}}</div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-lg-12 text-center mt-3">

@@ -5,7 +5,7 @@ create_table("users") {
   t.Column("email", "string", {"size": 100})
   t.Column("password", "string", {"size": 60})
   t.Column("phone", "string", {"size": 50})
-  t.Column("accommodations", "string", {"size": 500})
+  t.Column("message", "string", {"size": 500})
   t.Column("has_newsletter", "bool", {"default": false})
   t.Column("is_flagged", "bool", {"default": false})
   t.Column("active", "bool", {"default": true})

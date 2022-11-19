@@ -12,8 +12,8 @@
                       <div class="col-lg-12 text-center mt-5">
                           <h5 class="mb-3">Want To Book It?</h5>
                           <p class="item-intro">Enter the date range that you wish to stay below to check availability.</p>
-                          <input disabled required value="{{index .StringMap "start"}}" class="form-control-lg mb-3" type="text" id="start" name="start" autocomplete="off" placeholder="Arrival Date*" required="">
-                          <input disabled required value="{{index .StringMap "end"}}"class="form-control-lg mb-3" type="text" id="end" name="end" autocomplete="off" placeholder="Departure Date*" required="">
+                          <input disabled required value="{{index .StringMap "start_date"}}" class="form-control-lg mb-3" type="text" id="start_date" name="start_date" autocomplete="off" placeholder="Arrival Date*" required="">
+                          <input disabled required value="{{index .StringMap "end_date"}}"class="form-control-lg mb-3" type="text" id="end_date" name="end_date" autocomplete="off" placeholder="Departure Date*" required="">
                       </div>
                   </div>
                 </div>
@@ -60,13 +60,13 @@
             },
             preConfirm: () => {
                 return [
-                    document.getElementById('start').value,
-                    document.getElementById('end').value
+                    document.getElementById('start_date').value,
+                    document.getElementById('end_date').value
                 ]
             },
             didOpen: () => {
-                document.getElementById('start').removeAttribute('disabled');
-                document.getElementById('end').removeAttribute('disabled');
+                document.getElementById('start_date').removeAttribute('disabled');
+                document.getElementById('end_date').removeAttribute('disabled');
             },
             callback: function (result) {
                 //console.log("called");
@@ -111,8 +111,8 @@
                   <div class="row form-row" id="reservation-dates2">
                       <div class="col-lg-12 text-center mt-5">
                           <h4 class="mb-3">Reservation Dates</h4>
-                          <input disabled required class="form-control-lg mb-3" type="text" id="res-start" name="res-start" autocomplete="off" placeholder="Arrival Date*">
-                          <input disabled required class="form-control-lg mb-3" type="text" id="res-end" name="res-end" autocomplete="off" placeholder="Departure Date*">
+                          <input disabled required class="form-control-lg mb-3" type="text" id="start_date" name="start_date" autocomplete="off" placeholder="Arrival Date*">
+                          <input disabled required class="form-control-lg mb-3" type="text" id="end_date" name="end_date" autocomplete="off" placeholder="Departure Date*">
                       </div>
                   </div>
                 </div>

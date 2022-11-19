@@ -70,10 +70,10 @@
                                     </ul>
                                     <ul class="navbar-nav mt-1 ms-auto mb-2 mb-lg-0" id="reservation-dates">
                                         <li class="nav-item">
-                                             <input value="{{$res.Start}}" required class="nobox form-control d-inline" style="max-width:110px; cursor:pointer;" type="text" id="start" name="start" autocomplete="off" placeholder="Arrival Date *">
+                                             <input value="{{$res.StartDate}}" required class="nobox form-control d-inline" style="max-width:110px; cursor:pointer;" type="text" id="start_date" name="start_date" autocomplete="off" placeholder="Arrival Date *">
                                         </li>
                                         <li class="nav-item">
-                                            <span class="text-secondary">-</span><input value="{{$res.End}}" required class="nobox form-control d-inline " style="max-width:110px; cursor:pointer;" type="text" id="end" name="end" autocomplete="off" placeholder="Departure Date *">
+                                            <span class="text-secondary">-</span><input value="{{$res.EndDate}}" required class="nobox form-control d-inline " style="max-width:110px; cursor:pointer;" type="text" id="end_date" name="end_date" autocomplete="off" placeholder="Departure Date *">
                                         </li>
                                         <li class="nav-item">
                                              <a class="nav-link me-4" href="/reservation#city">{{$res.City}}, {{$res.Zip}}</a>
@@ -89,6 +89,7 @@
 
             <div class="row">
                 <!-- TODO: Loop over rows from data -->
+                <div class="col-sm-12 col-md-6 col-xl-4 portfolio-item"><a class="portfolio-link" href="#" onclick="showSpot(1,'Aspen Cabin','rooms/cabin.webp');">
                 <div class="col-sm-12 col-md-6 col-xl-4 portfolio-item"><a class="portfolio-link" href="#" onclick="showSpot(1,'Aspen Cabin','rooms/cabin.webp');">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>

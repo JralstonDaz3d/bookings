@@ -263,24 +263,24 @@ func (m *Repository) ReservationPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	reservation := models.Reservation{
-		Name:     r.Form.Get("name"),
-		Email:    r.Form.Get("email"),
-		Phone:    r.Form.Get("phone"),
-		Message:  r.Form.Get("message"),
-		Rooms:    r.Form.Get("rooms"),
-		Guests:   r.Form.Get("guests"),
-		Roomtype: r.Form.Get("roomtype"),
-		Zip:      r.Form.Get("zip"),
-		City:     r.Form.Get("city"),
-		Country:  r.Form.Get("country"),
-		Start:    r.Form.Get("start"),
-		End:      r.Form.Get("end"),
+		Name:      r.Form.Get("name"),
+		Email:     r.Form.Get("email"),
+		Phone:     r.Form.Get("phone"),
+		Message:   r.Form.Get("message"),
+		Rooms:     r.Form.Get("rooms"),
+		Guests:    r.Form.Get("guests"),
+		Roomtype:  r.Form.Get("roomtype"),
+		Zip:       r.Form.Get("zip"),
+		City:      r.Form.Get("city"),
+		Country:   r.Form.Get("country"),
+		StartDate: r.Form.Get("start_date"),
+		EndDate:   r.Form.Get("end_date"),
 	}
 
 	form := forms.New(r.PostForm)
 
 	// form validation + GoValidator
-	form.Required("name", "email", "phone", "rooms", "guests", "roomtype", "zip", "city", "country", "start", "end")
+	form.Required("name", "email", "phone", "rooms", "guests", "roomtype", "zip", "city", "country", "start_date", "end_date")
 	form.MinLength("name", 3, r)
 	form.MinLength("phone", 10, r)
 	form.IsEmail("email")
@@ -349,23 +349,23 @@ func (m *Repository) TermsOfUse(w http.ResponseWriter, r *http.Request) {
 }
 
 type jsonResponse struct {
-	Ok      bool   `json:"ok"`
-	Message string `json:"message"`
-	Start   string `json:"start"`
-	End     string `json:"end"`
+	Ok        bool   `json:"ok"`
+	Message   string `json:"message"`
+	StartDate string `json:"start_date"`
+	EndDate   string `json:"end_date"`
 }
 
 // AvailabilityJSON responds with JSON
 func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 
-	start := r.Form.Get("start")
-	end := r.Form.Get("end")
+	start_date := r.Form.Get("start_date")
+	end_date := r.Form.Get("end_date")
 
 	resp := jsonResponse{
-		Ok:      true,
-		Message: "Available",
-		Start:   start,
-		End:     end,
+		Ok:        true,
+		Message:   "Available",
+		StartDate: start_date,
+		EndDate:   end_date,
 	}
 
 	out, err := json.MarshalIndent(resp, "", "     ")
