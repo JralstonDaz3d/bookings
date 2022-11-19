@@ -65,7 +65,7 @@ func main() {
 	helpers.NewHelpers(&app)
 
 	// serve the web page
-	fmt.Println(fmt.Sprintf("Starting app on port %s", PortNumber))
+	fmt.Println(fmt.Sprintf("Starting app on port http://localhost%s", PortNumber))
 
 	srv := &http.Server{
 		Addr:    PortNumber,

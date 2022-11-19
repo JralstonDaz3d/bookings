@@ -1,0 +1,5 @@
+add_foreign_key("locations", "roomtype_id", {"room_types": ["id"]}, {
+    "name": "locations_room_types_id_fk",
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})

@@ -1,0 +1,6 @@
+create_table("room_types") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("title", "string", {"size": 100})
+  t.Column("description", "string", {"size": 255})
+  t.Column("active", "bool", {"default": true})
+}

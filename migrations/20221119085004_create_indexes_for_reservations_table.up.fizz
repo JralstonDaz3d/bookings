@@ -1,0 +1,4 @@
+add_index("reservations", "start_date", {"name": "reservations_start_idx"})
+add_index("reservations", "end_date", {"name": "reservations_end_idx"})
+add_index("reservations", "location_id", {"name": "reservations_location_id_idx"})
+add_index("reservations", "user_id", {"name": "reservations_user_id_idx"})

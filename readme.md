@@ -19,7 +19,8 @@ This web application covers all the basics of back-end Go development for web to
 - Handling User Input data
 - Client side Form Validation
 - Server side Form Validation + GoValidator
-- Persisting data with a database or datastore
+- Persisting data with postgre database
+- Using Buffalo/Soda for data migration
 - Sending Emails
 - Authentication
 - Backend CMS administration
@@ -32,6 +33,7 @@ This web application covers all the basics of back-end Go development for web to
   - [Chi Router v5.0.7](https://github.com/go-chi/chi/v5)
   - [NoSurf CSRF v1.1.1](https://github.com/justinas/nosurf)
   - [GoValidator](https://github.com/asaskevich/govalidator)
+  - [Soda Fizz Data Migrations](https://gobuffalo.io/documentation/database/fizz/)
 
 ### Front-End Toolset Used
 - Responsive design using HTML5, CSS3, and Javascript

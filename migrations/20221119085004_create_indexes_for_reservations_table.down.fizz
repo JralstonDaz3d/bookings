@@ -1,0 +1,4 @@
+drop_index("reservations", "reservations_start_idx")
+drop_index("reservations", "reservations_end_idx")
+drop_index("reservations", "reservations_location_id_idx")
+drop_index("reservations", "reservations_user_id_idx")

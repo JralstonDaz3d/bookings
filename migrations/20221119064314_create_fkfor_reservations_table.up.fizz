@@ -1,0 +1,11 @@
+add_foreign_key("reservations", "user_id", {"users": ["id"]}, {
+    "name": "reservations_users_id_fk",
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})
+
+add_foreign_key("reservations", "location_id", {"locations": ["id"]}, {
+    "name": "reservations_locations_id_fk",
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})

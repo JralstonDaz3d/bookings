@@ -1,0 +1,2 @@
+drop_foreign_key("reservations", "reservations_locations_id_fk", {"if_exists": true})
+drop_foreign_key("reservations", "reservations_users_id_fk", {"if_exists": true})
